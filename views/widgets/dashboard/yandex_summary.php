@@ -62,7 +62,7 @@ $(function(){
 		.on('start_resize', function(e, gridster, ui) {
 			$('#YandexSummary').hide();
 		})
-		.on('resize', function(e, gridster, ui) {
+		.on('stop_resize', function(e, gridster, ui) {
 			$('#YandexSummary').highcharts().setSize(calculate_w(), calculate_h());
 			$('#YandexSummary').show();
 		});
