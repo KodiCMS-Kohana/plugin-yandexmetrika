@@ -59,10 +59,10 @@ $(function(){
 	}
 	
 	$('.yandex-summary-widget')
-		.on('start_resize', function(e, gridster, ui) {
+		.on('resize_start', function(e, gridster, ui) {
 			$('#YandexSummary').hide();
 		})
-		.on('stop_resize', function(e, gridster, ui) {
+		.on('resize_stop', function(e, gridster, ui) {
 			$('#YandexSummary').highcharts().setSize(calculate_w(), calculate_h());
 			$('#YandexSummary').show();
 		});
