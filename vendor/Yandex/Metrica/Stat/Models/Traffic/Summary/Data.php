@@ -1,6 +1,6 @@
 <?php
 
-namespace Yandex\Metrica\Stat\Models\Summary;
+namespace Yandex\Metrica\Stat\Models\Traffic\Summary;
 
 use Yandex\Common\ObjectModel;
 

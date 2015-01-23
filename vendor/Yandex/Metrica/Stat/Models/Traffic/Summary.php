@@ -1,9 +1,7 @@
 <?php
 
-namespace Yandex\Metrica\Stat\Models;
+namespace Yandex\Metrica\Stat\Models\Traffic;
 
-use Yandex\Metrica\Stat\Models\Query;
-use Yandex\Metrica\Stat\Models\Data;
 use Yandex\Common\Model;
 
 // https://tech.yandex.ru/metrika/doc/ref/stat/traffic-summary-docpage/
@@ -15,7 +13,7 @@ class Summary extends Model {
 	public $data = array();
 	public $totals = 0;
 	protected $mappingClasses = array(
-		'data' => 'Yandex\Metrica\Stat\Models\Summary\Data'
+		'data' => 'Yandex\Metrica\Stat\Models\Traffic\Summary\Data'
 	);
 	protected $propNameMap = array(
 		'date1' => 'date_start',

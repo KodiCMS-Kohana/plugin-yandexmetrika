@@ -1,6 +1,6 @@
 <?php
 
-namespace Yandex\Metrica\Stat\Models;
+namespace Yandex\Metrica\Stat\Models\Sources\Summary;
 
 use Yandex\Common\ObjectModel;
 
@@ -20,7 +20,7 @@ class Data extends ObjectModel {
 	{
 		if (is_array($items))
 		{
-			$this->collection[] = new Summary\Items($items);
+			$this->collection[] = new Items($items);
 		}
 		elseif (is_object($items) && $items instanceof Items)
 		{
