@@ -25,10 +25,10 @@ class Model_Widget_Dashboard_Yandex_Sources_Summary extends Model_Widget_Decorat
 	public $header = 'Sources Summary';
 
 	protected $_size = array(
-		'x' => 3,
+		'x' => 2,
 		'y' => 3,
 		'max_size' => array(5, 5),
-		'min_size' => array(3, 3)
+		'min_size' => array(2, 2)
 	);
 	
 	public function fetch_data(){}
