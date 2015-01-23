@@ -26,6 +26,11 @@ $('.yandex-traffic-summary-widget')
 
 				return datasets;
 			}
+			
+			if(response.code != 200) {
+				$('#YandexTrafficSummary').html(response.message)
+				return;
+			}
 	
 			var data = parse_data(response.response.data);
 

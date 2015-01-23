@@ -19,6 +19,11 @@ $('.yandex-sources-summary-widget')
 				return series;
 			}
 			
+			if(response.code != 200) {
+				$('#YandexSourcesSummary').html(response.message)
+				return;
+			}
+			
 			$('#YandexSourcesSummary').highcharts({
 				chart: {
 					spacingBottom: 20,

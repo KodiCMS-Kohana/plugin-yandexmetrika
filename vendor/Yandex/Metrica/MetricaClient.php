@@ -75,27 +75,21 @@ class MetricaClient extends AbstractServiceClient {
 	 */
 	protected function sendRequest(\Request $request)
 	{
-		try
+		$request->headers('User-Agent', $this->getUserAgent());
+		$response = $request->execute();
+
+		switch ($response->status())
 		{
-			$request->headers('User-Agent', $this->getUserAgent());
-			$response = $request->execute();
-		} 
-		catch (\Request_Exception $ex)
-		{
-			$code = $ex->getCode();
-			$message = $ex->getMessage();
-
-			if ($code === 403)
-			{
-				throw new ForbiddenException($message);
-			}
-
-			if ($code === 401)
-			{
-				throw new UnauthorizedException($message);
-			}
-
-			throw new MetricaException('Service responded with error code: "' . $code . '" and message: "' . $message . '"');
+			case 401:
+				throw \HTTP_Exception::factory(401, 'Need to apply valid access token from :link', array(
+					':link' => \HTML::anchor('https://oauth.yandex.ru/')
+				));
+			case 403:
+				throw \HTTP_Exception::factory(403, $response->body());
+			case 405:
+				throw \HTTP_Exception::factory(405, 'Method :method Not Allowed', array(
+					$request->url()
+				));
 		}
 
 		return $response;
@@ -127,6 +121,7 @@ class MetricaClient extends AbstractServiceClient {
 		try
 		{
 			$response = $this->sendRequest($request);
+
 			$data = json_decode($response->body(), true);
 
 			if (isset($data['links']) && isset($data['links']['next']))
