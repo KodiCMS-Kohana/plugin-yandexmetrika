@@ -46,7 +46,9 @@ $('.yandex-traffic-summary-widget')
 				yAxis: {
 					title: {
 						text: '<?php echo __('Total views'); ?>'
-					}
+					},
+					min: 0,
+					minorGridLineWidth: 0
 				},
 				xAxis: {
 					categories: data.dates.reverse()
