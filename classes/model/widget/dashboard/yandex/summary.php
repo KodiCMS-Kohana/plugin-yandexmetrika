@@ -18,12 +18,16 @@ class Model_Widget_Dashboard_Yandex_Summary extends Model_Widget_Decorator_Dashb
 	
 	public $media_packages = array('chart');
 	
-	protected $_data = array();
+	protected $_data = array(
+		'chart_type' => 'spline'
+	);
 	
+	public $header = 'Traffic';
+
 	protected $_size = array(
 		'x' => 4,
 		'y' => 3,
-		'max_size' => array(4, 3),
+		'max_size' => array(8, 8),
 		'min_size' => array(4, 3)
 	);
 	

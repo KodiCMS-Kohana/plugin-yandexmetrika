@@ -5,41 +5,58 @@
 	</div>
 </div>
 <script type="text/javascript">
-$(function(){
-	Api.get('plugin-yandex.summary', {}, function(response) {
-
-		var data = parse_data(response.response.data);
-		
-		$('#YandexSummary').highcharts({
-			chart: {
-				type: 'line',
-				// Edit chart spacing
-				spacingBottom: 0,
-				spacingTop: 0,
-				spacingLeft: 0,
-				spacingRight: 0,
-				width: calculate_w(),
-				height: calculate_h()
-			},
-			title: {
-				text: 'Yandex Summary'
-			},
-			xAxis: {
-				categories: data.dates
-			},
-			series: [{
-				name: 'Visitors',
-				data: data.visitors
-			}, {
-				name: 'Visits',
-				data: data.visits
-			}, {
-				name: 'pave views',
-				data: data.page_views
-			}]
-		});
-	});
 	
+$('.yandex-summary-widget')
+	.on('widget_init', function(e, w ,h) {
+		Api.get('plugin-yandex.summary', {
+			date_start: '<?php echo $widget->date_start; ?>',
+			date_end: '<?php echo $widget->date_end; ?>'
+		}, function(response) {
+			var data = parse_data(response.response.data);
+			$('#YandexSummary').highcharts({
+				chart: {
+					type: '<?php echo $widget->chart_type; ?>',
+					// Edit chart spacing
+					spacingBottom: 0,
+					spacingTop: 0,
+					spacingLeft: 0,
+					spacingRight: 0,
+					width: w-60,
+					height: h-60
+				},
+				title: {
+					text: '<?php echo __($widget->header); ?>'
+				},
+				yAxis: {
+					title: {
+						text: '<?php echo __('Total views'); ?>'
+					}
+				},
+				xAxis: {
+					categories: data.dates.reverse()
+				},
+				series: [{
+					name: '<?php echo __('Visitors'); ?>',
+					data: data.visitors.reverse()
+				}, {
+					name: '<?php echo __('Visits'); ?>',
+					data: data.visits.reverse()
+				}, {
+					name: '<?php echo __('Page views'); ?>',
+					data: data.page_views.reverse()
+				}],
+				plotOptions: {
+					spline: {
+						lineWidth: 2
+					}
+				},
+			});
+		});
+	})
+	.on('resize_stop', function(e, gridster, ui, w, h) {
+		$('#YandexSummary').highcharts().setSize(w-60, h-60);
+	});
+
 	function parse_data(data) {
 		var dates = [];
 		var datasets = {
@@ -56,25 +73,5 @@ $(function(){
 		}
 		
 		return datasets;
-	}
-	
-	$('.yandex-summary-widget')
-		.on('resize_start', function(e, gridster, ui) {
-			$('#YandexSummary').hide();
-		})
-		.on('resize_stop', function(e, gridster, ui) {
-			$('#YandexSummary').highcharts().setSize(calculate_w(), calculate_h());
-			$('#YandexSummary').show();
-		});
-});
-
-	function calculate_w() {
-		var $cont = $('.yandex-summary-widget');
-		return $cont.width() - 60;
-	}
-
-	function calculate_h() {
-		var $cont = $('.yandex-summary-widget');
-		return $cont.height() - 60;
 	}
 </script>

@@ -23,7 +23,8 @@ class Items extends Model {
 
 	public function setDate($date)
 	{
-		$this->date = \Date::format($date);
+		$date = date_parse_from_format('Ymd', $date);
+		$this->date = \Date::format($date, 'd.m');
 		return $this;
 	}
 }
